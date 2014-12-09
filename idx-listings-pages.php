@@ -8,6 +8,7 @@ if (is_admin()) {
         add_filter('body_class', array('dsIdxListingsPages', 'AddPostClass'));
         add_filter('post_class', array('dsIdxListingsPages', 'AddPostClass'));
         add_action('init', array('dsIdxListingsPages', 'EnsureBaseUri'));
+        add_filter('template_include', array('dsIdxListingsPages', 'SetTemplate'));
 }
 add_action('init', array('dsIdxListingsPages', 'Setup'));
 add_action('init', array('dsIdxListingsPages', 'RewriteRules'));
@@ -122,6 +123,22 @@ class dsIdxListingsPages {
                 return $newPosts;
             }
             return $posts;
+    }
+
+    public static function SetTemplate($template) {
+
+        error_log('SetTemplate function');
+        error_log($template);
+        if (get_query_var('post_type') == 'ds-idx-listings-page') {
+            $options = get_option(DSIDXPRESS_OPTION_NAME);
+            if (!empty($options['ResultsTemplate'])) {
+                $newTemplate = locate_template(array($options['ResultsTemplate']));
+                if (!empty($newTemplate)) $template = $newTemplate;
+            }
+        }
+        error_log($template);
+        return $template;
+
     }
 
 

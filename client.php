@@ -156,6 +156,7 @@ class dsSearchAgent_Client {
 		remove_filter("the_content", "prepend_attachment");
 
 		add_filter('get_edit_post_link', array('dsSearchAgent_Client', 'RemoveEditLink'), 10, 3);
+		add_filter('post_class', array('dsSearchAgent_Client', 'RemoveGoogleDataClasses'));
 
 		// we handle our own redirects and canonicals
 		add_filter("wp_redirect", array("dsSearchAgent_Client", "CancelAllRedirects"));
@@ -580,6 +581,13 @@ HTML;
 	}
 	static function RemoveEditLink($editLink, $postId, $context) {
 		return;
+	}
+	static function RemoveGoogleDataClasses($classes) {
+		global $wp_query;
+		if (isset($wp_query->query['idx-action'])) {
+			$classes = array_diff($classes, array('hentry'));
+		}
+		return $classes;
 	}
 }
 ?>

@@ -83,6 +83,7 @@ class dsSearchAgent_ApiRequest {
 		else
 		{
 			$response = (array)wp_remote_post($requestUri, array(
+				"headers"		=> array('Accept-Encoding' => 'identity'),
 				"body"			=> $params,
 				"redirection"	=> "0",
 				"timeout"		=> 15, // we look into anything that takes longer than 2 seconds to return
