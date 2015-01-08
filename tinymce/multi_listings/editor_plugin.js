@@ -11,7 +11,7 @@ tinymce.create('tinymce.plugins.dsidxListings', {
 			});
 		});
 		ed.addButton('idxlistings', {
-			title : 'Insert listings from MLS data (by dsSearchAgent)',
+			title : 'Insert listings from MLS data',
 			cmd : 'dsidx-listings',
 			image : url + '/img/multi_listings.png'
 		});
@@ -25,7 +25,7 @@ tinymce.create('tinymce.plugins.dsidxListings', {
 	},
 	getInfo : function() {
 		return {
-			longname : 'Insert "live" listings from MLS data (by dsIDXpress)',
+			longname : 'Insert "live" listings from MLS data',
 			author : 'Diverse Solutions',
 			authorurl : 'http://www.diversesolutions.com',
 			infourl : 'javascript:void(0)',

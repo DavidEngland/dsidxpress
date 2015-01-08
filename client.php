@@ -396,6 +396,10 @@ class dsSearchAgent_Client {
 			}
 		}
 		
+		if(!isset($apiHttpResponse["response"])){
+			wp_die("We're sorry, but we ran into a temporary problem while trying to load the real estate data. Please check back soon.", "Real estate data load error");
+		}
+
 		if ($apiHttpResponse["response"]["code"] == "404") {
 			$wp_query->set('is_404', true);
 			add_action('get_header', array("dsSearchAgent_Client", "Return404"));

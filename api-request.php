@@ -90,7 +90,7 @@ class dsSearchAgent_ApiRequest {
 				"reject_unsafe_urls" => false
 			));
 
-			if (empty($response["errors"]) && substr($response["response"]["code"], 0, 1) != "5") {
+			if (empty($response["errors"]) && isset($response["response"]) && substr($response["response"]["code"], 0, 1) != "5") {
 				$response["body"] = self::FilterData($response["body"]);
 				if ($response["body"]){
 					if ($cacheSecondsOverride !== 0 && (!isset($options['DisableCache']) || $options['DisableCache'] != 'true'))

@@ -217,7 +217,16 @@ HTML;
 		$instance = wp_parse_args($instance, array(
 			"title" => "Real Estate Search",
 			"searchOptions" => array(
-				"cities" => array()
+				"cities" => array(),
+				"communities" => array(),
+				"tracts" => array(),
+				"zips" => array(),
+				"show_cities" => 'yes',
+				"show_communities" => 'no',
+				"show_tracts" => 'no',
+				"show_zips" => 'no',
+				"show_mlsnumber" => 'no',
+				"show_advanced" => 'no'
 			)
 		));
 

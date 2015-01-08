@@ -210,6 +210,7 @@ class dsSearchAgent_ClientAssist {
 		if($_REQUEST["PropertyID"]) $apiParams["query.PropertyID"] = $_REQUEST["PropertyID"];
 		if($_REQUEST["MlsNumber"]) $apiParams["query.MlsNumber"] = $_REQUEST["MlsNumber"];
 		$apiParams["responseDirective.ViewNameSuffix"] = "print";
+		$apiParams["responseDirective.IncludeDisclaimer"] = "true";
 		$apiHttpResponse = dsSearchAgent_ApiRequest::FetchData("Details", $apiParams, false);
 
 		header('Cache-control: private');

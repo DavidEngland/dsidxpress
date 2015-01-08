@@ -126,9 +126,6 @@ class dsIdxListingsPages {
     }
 
     public static function SetTemplate($template) {
-
-        error_log('SetTemplate function');
-        error_log($template);
         if (get_query_var('post_type') == 'ds-idx-listings-page') {
             $options = get_option(DSIDXPRESS_OPTION_NAME);
             if (!empty($options['ResultsTemplate'])) {
@@ -136,9 +133,7 @@ class dsIdxListingsPages {
                 if (!empty($newTemplate)) $template = $newTemplate;
             }
         }
-        error_log($template);
         return $template;
-
     }
 
 
