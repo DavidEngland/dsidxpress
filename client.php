@@ -378,8 +378,12 @@ class dsSearchAgent_Client {
 		$apiParams["responseDirective.RemoveDsDisclaimerLinks"] = (isset($options['RemoveDsDisclaimerLinks']) && $options['RemoveDsDisclaimerLinks'] == 'Y') ? "true" : "false";
 
 		$apiHttpResponse = dsSearchAgent_ApiRequest::FetchData($wp_query->query["idx-action"], $apiParams, false);
-		$apiData = $apiHttpResponse["body"];
 		
+		if(!isset($apiHttpResponse["body"]) || !isset($apiHttpResponse["response"])){
+			wp_die("We're sorry, but we ran into a temporary problem while trying to load the real estate data. Please check back soon.", "Real estate data load error");
+		}
+
+		$apiData = $apiHttpResponse["body"];
 		$apiData = str_replace('{$contentDomId}', $post_id, $apiData);
 
 		if ($action == 'details' && defined('ZPRESS_API') && ZPRESS_API != '') {
@@ -394,10 +398,6 @@ class dsSearchAgent_Client {
 				print_r($apiHttpResponse);
 				exit();
 			}
-		}
-		
-		if(!isset($apiHttpResponse["response"])){
-			wp_die("We're sorry, but we ran into a temporary problem while trying to load the real estate data. Please check back soon.", "Real estate data load error");
 		}
 
 		if ($apiHttpResponse["response"]["code"] == "404") {

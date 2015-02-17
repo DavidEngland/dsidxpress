@@ -730,6 +730,14 @@ if (isset($diagnostics["error"])) {
 			$account_options = json_decode($apiHttpResponse["body"]);
 		$urlBase = get_home_url();
 
+		$wp_options = get_option(DSIDXPRESS_OPTION_NAME);
+		$mlsrules = dsSearchAgent_ApiRequest::FetchData('MlsDisplayRules', array('SearchSetupID' => $wp_options['SearchSetupID']), false, 0);
+		if (isset($mlsrules['body'])) {
+			$mlsrules = json_decode($mlsrules['body'], true);
+		} else {
+			$mlsrules = array();
+		}
+
 		$property_types = dsSearchAgent_ApiRequest::FetchData('AccountSearchSetupPropertyTypes', array(), false, 0);
 		$default_types = dsSearchAgent_ApiRequest::FetchData('DefaultPropertyTypesNoCache', array(), false, 0);
 
@@ -918,6 +926,9 @@ if (isset($diagnostics["error"])) {
 							<table class="dsidxpress-status-types">
 								<?php
 								$listing_status_types = array('Active' => 1, 'Conditional' => 2, 'Pending' => 4, 'Sold' => 8);
+								if (isset($mlsrules['HideSoldPropertyFunctionality'])) {
+									unset($listing_status_types['Sold']);
+								}
 								foreach ($listing_status_types as $label => $value) :
 									$status_checked = '';
 									if (strpos($account_options->DefaultListingStatusTypeIDs, (string)$value) !== false) 
@@ -1271,20 +1282,6 @@ if (isset($diagnostics["error"])) {
 						</td>
 					</tr>
 				</table>
-				<?php if(!defined('ZPRESS_API') || ZPRESS_API == '') : ?>
-					<p class="description">WARNING: This is an advanced setting. Disabling the cache will negatively affect the loading speed of IDX components on your site.</p>
-					<table class="form-table">
-						<tr>
-							<th>
-								<label for="dsidxpress-DisableCache">Disable Caching:</label>
-							</th>
-							<td>
-								<input type="checkbox" id="dsidxpress-DisableCacheCB" size="50" <?php checked('true', strtolower($options["DisableCache"])); ?> onclick="dsIDXpressOptions.OptionCheckBoxClick(this);" /><br />
-								<input type="hidden" id="dsidxpress-DisableCache" name="<?php echo DSIDXPRESS_OPTION_NAME; ?>[DisableCache]" value="<?php echo $options["DisableCache"]; ?>" />
-							</td>
-						</tr>
-					</table>
-				<?php endif; ?>
 				<br />
 				<p class="submit">
 					<input type="submit" class="button-primary" name="Submit" value="Save Options" />

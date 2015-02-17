@@ -109,6 +109,7 @@ class dsIdxListingsPages {
                     $_GET = array();
                 }
                 $linkUrl = get_post_meta($pageData->ID, 'dsidxpress-assembled-url', true);
+                $linkUrl = urlencode(stripslashes(urldecode($linkUrl)));
                 $parts = parse_url($linkUrl);
                 $filters = array();
                 if(isset($parts['query'])){

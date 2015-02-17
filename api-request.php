@@ -48,7 +48,7 @@ class dsSearchAgent_ApiRequest {
 		ksort($params);
 		$transientKey = "idx_" . sha1($action . "_" . http_build_query($params));
 
-		if ($cacheSecondsOverride !== 0 && (!isset($options['DisableCache']) || $options['DisableCache'] != 'true')) {
+		if ($cacheSecondsOverride !== 0 && (!isset($options['DisableLocalCaching']) || $options['DisableLocalCaching'] != 'true')) {
 			$cachedRequestData = get_transient($transientKey);
 
 			if ($cachedRequestData) {
@@ -93,7 +93,7 @@ class dsSearchAgent_ApiRequest {
 			if (empty($response["errors"]) && isset($response["response"]) && substr($response["response"]["code"], 0, 1) != "5") {
 				$response["body"] = self::FilterData($response["body"]);
 				if ($response["body"]){
-					if ($cacheSecondsOverride !== 0 && (!isset($options['DisableCache']) || $options['DisableCache'] != 'true'))
+					if ($cacheSecondsOverride !== 0 && (!isset($options['DisableLocalCaching']) || $options['DisableLocalCaching'] != 'true'))
 						set_transient($transientKey, $compressCache ? base64_encode(gzdeflate(serialize($response))) : $response, $cacheSecondsOverride === null ? self::$CacheSeconds : $cacheSecondsOverride);
 					else
 						delete_transient($transientKey);
