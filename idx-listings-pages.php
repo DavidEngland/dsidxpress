@@ -109,12 +109,14 @@ class dsIdxListingsPages {
                     $_GET = array();
                 }
                 $linkUrl = get_post_meta($pageData->ID, 'dsidxpress-assembled-url', true);
-                $linkUrl = urlencode(stripslashes(urldecode($linkUrl)));
                 $parts = parse_url($linkUrl);
                 $filters = array();
                 if(isset($parts['query'])){
                     parse_str($parts['query'], $filters);
                 }
+                $filters = array_map(function(&$item){
+                    return stripslashes($item);
+                }, $filters);
                 $newPosts = dsSearchAgent_Client::Activate($posts, $filters, $pageData->ID);
                 $newPosts[0]->post_content = $pageContent . $newPosts[0]->post_content;
                 $newPosts[0]->post_name = $pageData->post_name;
