@@ -114,9 +114,7 @@ class dsIdxListingsPages {
                 if(isset($parts['query'])){
                     parse_str($parts['query'], $filters);
                 }
-                $filters = array_map(function(&$item){
-                    return stripslashes($item);
-                }, $filters);
+                $filters = array_map(array('dsIdxListingsPages','CleanIdxPageFilters'), $filters);
                 $newPosts = dsSearchAgent_Client::Activate($posts, $filters, $pageData->ID);
                 $newPosts[0]->post_content = $pageContent . $newPosts[0]->post_content;
                 $newPosts[0]->post_name = $pageData->post_name;
@@ -126,6 +124,10 @@ class dsIdxListingsPages {
                 return $newPosts;
             }
             return $posts;
+    }
+
+    public static function CleanIdxPageFilters($item){
+        return stripslashes($item);
     }
 
     public static function SetTemplate($template) {
