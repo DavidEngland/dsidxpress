@@ -953,6 +953,26 @@
                     }
                 ]
             },
+            open_houses: {
+                name: 'Open Houses (PRO users only)',
+                help: 'Open House information available to dsIDXpress PRO users only.',
+                fields: [
+                    {
+                        id: 'idx-q-OpenHouseRelativeTime',
+                        label: 'Open House Time',
+                        type: 'lookup',
+                        mode: 'lookup',
+                        hint: '-1',
+                        options: {
+                            'NowThroughEndOfToday': 'Now through the end of today',
+                            'NowThroughEndOfWeekend': 'Now through the end of the weekend',
+                            'ThisWeekend': 'This weekend',
+                            'ThisWeek' : 'This week',
+
+                        }
+                    }
+                ]
+            },
             sort_columns: {
                 name: 'Sorting',
                 fields: [

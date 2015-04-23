@@ -68,8 +68,14 @@ class dsIdxListingsPages {
             add_rewrite_tag('%ds-idx-listings-page%', '([^&]+)');
             add_rewrite_rule('[Ii][Dd][Xx]/[Ll][Ii][Ss][Tt][Ii][Nn][Gg][Ss]/([^/]+)(?:/page\-(\\d+))?', 'index.php?ds-idx-listings-page=$matches[1]&idx-d-ResultPage=$matches[2]', 'top');
 
+            add_rewrite_tag('%ds-idx-archives-listings-page%', '([^&]+)');
+            add_rewrite_rule('archives/[Ii][Dd][Xx]/[Ll][Ii][Ss][Tt][Ii][Nn][Gg][Ss]/([^/]+)(?:/page\-(\\d+))?', 'index.php?ds-idx-listings-page=$matches[1]&idx-d-ResultPage=$matches[2]', 'top');
+
             $rules = get_option('rewrite_rules');
             if (!isset($rules["[Ii][Dd][Xx]/[Ll][Ii][Ss][Tt][Ii][Nn][Gg][Ss]/([^/]+)(?:/page\-(\\d+))?"]))
+                add_action('wp_loaded', array('dsIdxListingsPages', 'FlushRewriteRules'));
+
+            if (!isset($rules["archives/[Ii][Dd][Xx]/[Ll][Ii][Ss][Tt][Ii][Nn][Gg][Ss]/([^/]+)(?:/page\-(\\d+))?"]))
                 add_action('wp_loaded', array('dsIdxListingsPages', 'FlushRewriteRules'));
 
     }

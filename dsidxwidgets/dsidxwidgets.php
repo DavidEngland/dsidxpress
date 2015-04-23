@@ -48,7 +48,7 @@ require_once($require_prefix . "widget-service-recentstatus.php");
 require_once($require_prefix . "widget-service-openhouse.php");
 require_once($require_prefix . "widget-service-slideshow.php");
 require_once($require_prefix . "widget-service-mapsearch.php");
-require_once($require_prefix . "widget-service-quicksearch.php");
+//require_once($require_prefix . "widget-service-quicksearch.php");
 require_once($require_prefix . "widget-service-base.php");
 
 
@@ -88,7 +88,7 @@ function dsidxwidgets_InitWidgets() {
 		register_widget("dsIDXWidgets_OpenHouse");
 		register_widget("dsIDXWidgets_Slideshow");
 		register_widget("dsIDXWidgets_MapSearch");
-		register_widget("dsIDXWidgets_QuickSearch");
+		//register_widget("dsIDXWidgets_QuickSearch");
 	}
 }
 

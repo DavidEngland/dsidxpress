@@ -177,11 +177,11 @@ class dsSearchAgent_ApiRequest {
 		preg_match_all('/<script\s*src="(?P<src>[^"]+)"\s*data-handle="(?P<handle>[^"]+)"><\/script>/', $data, $scripts, PREG_SET_ORDER);
 		
 		foreach ($scripts as $script) {
-			$alreadyIncluded = (wp_script_is($script['handle'], 'done'));
+			$alreadyIncluded = (wp_script_is($script['handle']));
 			if ($alreadyIncluded) {
-				$data = str_replace($script[0], "", $data); // This <script> tag has already been written to the DOM. Remove it from the HTML in $data.
+				$data = str_replace($script[0], "", $data); // This <script> tag has already been enqueued.
 			} else {
-				array_push($wp_scripts->done, $script['handle']); // Make wordpress think that this script has already been both enqueued and printed to output.
+					wp_enqueue_script($script["handle"], $script["href"], array('jquery'), null);				
 			}
 		}
 

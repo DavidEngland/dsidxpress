@@ -1,4 +1,5 @@
 <?php
+/** THIS FILE IS NO LONGER BEING USED. PENDING DELETION **/
 class dsIDXWidgets_quicksearch extends WP_Widget {
     var $widgetsCdn;
 

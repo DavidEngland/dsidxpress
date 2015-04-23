@@ -3,7 +3,7 @@ jQuery().ready(function($) {
 	var omnibox = $('.dsidx-search-omnibox-autocomplete');
 
 	if(omnibox.length > 0){
-		$('.dsidx-search-omnibox-autocomplete').autocomplete({
+		$('.dsidx-search-omnibox-autocomplete').each(function() { $(this).autocomplete({
 			source: function(request, response) {
 				var term = request.term;
 			
@@ -60,10 +60,12 @@ jQuery().ready(function($) {
 			},
 			selectFirst: true,
 		}).data("ui-autocomplete")._renderItem = function(ul, item) {
+			console.log(item);
 			var name = (item.Type == 'County') ? item.Name + ' (County)' : item.Name;
 			return $('<li>').data('ui-autocomplete-item', item).append('<a>' + name + '</a>').appendTo(ul);
-		};
-		$('.dsidx-search-omnibox-autocomplete').autocomplete('widget').addClass('dsidx-ui-widget');
+		}
+	});
+	$('ul.ui-autocomplete').addClass('dsidx-ui-widget');
 	}
 	
 });

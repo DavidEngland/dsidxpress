@@ -919,7 +919,7 @@ if (isset($diagnostics["error"])) {
 					<?php if ($account_options->{'dsIDXPress-Package'} == 'pro') : ?>
 					<tr>
 						<th>
-							<label>Restrict Results by Status:</label>
+							<label>Default Results by Status:</label>
 						</th>
 						<td>
 							<input type="hidden" id="dsidxpress-DefaultListingStatusTypeIDs" name="<?php echo DSIDXPRESS_API_OPTIONS_NAME; ?>[DefaultListingStatusTypeIDs]" value="<?php echo $account_options->DefaultListingStatusTypeIDs; ?>" />
@@ -940,7 +940,7 @@ if (isset($diagnostics["error"])) {
 									</tr>
 								<?php endforeach; ?>
 							</table>
-							<span class="description">If you need / want to restrict the properties shown on your website by property status, check the statuses you would like visitors to see in search results here</span>
+							<span class="description">If you need / want to restrict the properties shown on your website by property status, check the statuses you would like visitors to see by default in search results here</span>
 						</td>
 					</tr>
 					<?php endif; ?>
@@ -975,7 +975,7 @@ if (isset($diagnostics["error"])) {
 			<div style="padding-left: 30px;">
 			<h2>Details Page Settings</h2>
 			<span class="description">These settings apply to any page holding details for a specific property. <br /><br />
-				You may use %city%, %state%, %zip%, %county%, %tract%, %community% and/or %zip% in any of the fields below and <br />
+				You may use %city%, %state%, %zip%, %county%, %tract%, and/or %community% in any of the fields below and <br />
 				they will display as the relevant value. For example: Homes for sale in %zip%. will appear as Homes for sale in 92681.
 			</span>
 			<br />

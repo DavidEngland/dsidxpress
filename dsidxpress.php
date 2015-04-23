@@ -5,7 +5,7 @@ Plugin URI: http://www.dsidxpress.com/
 Description: This plugin allows WordPress to embed live real estate data from an MLS directly into a blog. You MUST have a dsIDXpress account to use this plugin.
 Author: Diverse Solutions
 Author URI: http://www.diversesolutions.com/
-Version: 2.1.19
+Version: 2.1.20
 */
 
 /*
@@ -63,7 +63,9 @@ if(file_exists(dirname( __FILE__ ) . "/dsidxpress.php")){
 	$require_prefix = "";
 }
 
-require_once($require_prefix . "widget-search.php");
+require_once($require_prefix . "globals.php");
+require_once($require_prefix . "widget-idx-quick-search.php");
+require_once($require_prefix . "widget-idx-guided-search.php");
 require_once($require_prefix . "widget-list-areas.php");
 require_once($require_prefix . "widget-listings.php");
 require_once($require_prefix . "widget-single-listing.php");
@@ -113,7 +115,8 @@ function dsidxpress_DisplayVersionWarnings() {
 HTML;
 }
 function dsidxpress_InitWidgets() {
-	register_widget("dsSearchAgent_SearchWidget");
+	register_widget("dsSearchAgent_IdxQuickSearchWidget");
+	register_widget("dsSearchAgent_IdxGuidedSearchWidget");
 	register_widget("dsSearchAgent_ListAreasWidget");
 	register_widget("dsSearchAgent_ListingsWidget");
 	register_widget("dsSearchAgent_SingleListingWidget");
