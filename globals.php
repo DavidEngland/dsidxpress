@@ -1,6 +1,6 @@
 <?php
 if(!is_admin()){
-	add_action('wp_head', array('dsIdxGlobals', 'enqueueGlobals'));
+	add_action('init', array('dsIdxGlobals', 'enqueueGlobals'));
 }
 
 class dsIdxGlobals {

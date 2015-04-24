@@ -46,6 +46,8 @@ If you'd like to **see the plugin in action**, you can check out our [dsIDXpress
 
 == Changelog ==
 
+= 2.1.22 = 
+* Fixed issue where some themes would include scripts at bottom of page rather than in the <head>
 
 = 2.1.21 = 
 * Fixed issue where .js would sometimes not get included
