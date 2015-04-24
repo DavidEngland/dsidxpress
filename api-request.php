@@ -54,7 +54,7 @@ class dsSearchAgent_ApiRequest {
 			if ($cachedRequestData) {
 				$cachedRequestData = $compressCache ? unserialize(gzinflate(base64_decode($cachedRequestData))) : $cachedRequestData;
 				$cachedRequestData["body"] = self::ExtractAndEnqueueStyles($cachedRequestData["body"], $echoAssetsIfNotEnqueued);
-				$cachedRequestData["body"] = self::ExtractAndEnqueueScripts($cachedRequestData["body"], $echoAssetsIfNotEnqueued);
+				$cachedRequestData["body"] = self::ExtractAndEnqueueScripts($cachedRequestData["body"]);
 				return $cachedRequestData;
 			}
 		}
@@ -169,22 +169,19 @@ class dsSearchAgent_ApiRequest {
 
 		return $data;
 	}
-	private static function ExtractAndEnqueueScripts($data, $echoAssetsIfNotEnqueued) {
+	private static function ExtractAndEnqueueScripts($data) {
 		// see comment in ExtractAndEnqueueStyles
 
 		global $wp_scripts;
-
 		preg_match_all('/<script\s*src="(?P<src>[^"]+)"\s*data-handle="(?P<handle>[^"]+)"><\/script>/', $data, $scripts, PREG_SET_ORDER);
-		
 		foreach ($scripts as $script) {
 			$alreadyIncluded = (wp_script_is($script['handle']));
-			if ($alreadyIncluded) {
-				$data = str_replace($script[0], "", $data); // This <script> tag has already been enqueued.
-			} else {
-					wp_enqueue_script($script["handle"], $script["href"], array('jquery'), null);				
+			if (!$alreadyIncluded) {
+				wp_register_script($script["handle"], $script["src"], array('jquery'), DSIDXPRESS_PLUGIN_VERSION);
+				wp_enqueue_script($script["handle"]);				
 			}
+			$data = str_replace($script[0], "", $data);
 		}
-
 		return $data;
 	}
 }

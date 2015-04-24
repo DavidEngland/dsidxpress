@@ -10,6 +10,6 @@ class dsIdxGlobals {
 		if (!$options["Activated"])
 			return;
 
-		$apiHttpResponse = dsSearchAgent_ApiRequest::FetchData("EnqueueGlobalAssets", array(), false);
+		$apiHttpResponse = dsSearchAgent_ApiRequest::FetchData("EnqueueGlobalAssets", array(), false, 3600);
 	}
 }
