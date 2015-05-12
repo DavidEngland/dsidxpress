@@ -12,12 +12,19 @@ class dsSearchAgent_IdxQuickSearchWidget extends WP_Widget {
 
         $this->widgetsCdn = dsWidgets_Service_Base::$widgets_cdn;
     }
-    function LoadScripts(){
+    public static function LoadScripts(){
         dsidxpress_autocomplete::AddScripts(true);
     }
 
-    function widget($args, $instance) {
+    public static function shortcodeWidget($values){
+        self::renderWidget(array(), $values);
+    }
 
+    function widget($args, $instance) { // public so we can use this on our shortcode as well
+        self::renderWidget($args, $instance);
+    }
+
+    public static function renderWidget($args, $instance){
         extract($args);
         extract($instance);
         $title = apply_filters("widget_title", $title);
@@ -63,10 +70,14 @@ class dsSearchAgent_IdxQuickSearchWidget extends WP_Widget {
         if ($title)
             echo $before_title . $title . $after_title;
 
-        $widgetClass = ($widgetType == 1)?' dsidx-resp-vertical':'';
+        $widgetClass = ($widgetType == 1 || $widgetType == 'vertical')?'dsidx-resp-vertical':'dsidx-resp-horizontal';
+        
+        if(isset($instance['class'])){ //Allows us to add custim class for shortcode etc.
+            $widgetClass .= ' '.$instance['class'];
+        }
 
         echo <<<HTML
-            <div class="dsidx-resp-search-box{$widgetClass}">
+            <div class="dsidx-resp-search-box {$widgetClass}">
                 <form class="dsidx-resp-search-form" action="{$formAction}" method="GET">
                     <fieldset>
                         <div class="dsidx-resp-area dsidx-resp-location-area">

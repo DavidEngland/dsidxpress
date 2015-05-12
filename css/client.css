@@ -83,3 +83,6 @@ p.dsidx-error
 	text-align: center;
 }
 .dsidx-search-widget #idx-search-invalid-msg { display: none; }
+
+/** Attempt to hide author info etc. on IDX pages **/
+body.dsidx .post-info, body.dsidx .post-meta, body.dsidx .post-info, body.dsidx .entry-meta, .ds-idx-listings-page .post-info, .ds-idx-listings-page .post-meta, .ds-idx-listings-page .post-info, .ds-idx-listings-page .entry-meta{ display: none; }

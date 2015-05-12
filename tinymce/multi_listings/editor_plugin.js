@@ -13,7 +13,7 @@ tinymce.create('tinymce.plugins.dsidxListings', {
 		ed.addButton('idxlistings', {
 			title : 'Insert listings from MLS data',
 			cmd : 'dsidx-listings',
-			image : url + '/img/multi_listings.png'
+			//image : url + '/img/multi_listings.png'
 		});
 		ed.onNodeChange.add(function(ed, cm, n) {
 			cm.setActive('idxlistings', !tinymce.isIE && /^\[idx-listings /.test(n.innerHTML));

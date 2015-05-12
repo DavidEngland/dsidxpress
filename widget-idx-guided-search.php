@@ -8,7 +8,7 @@ class dsSearchAgent_IdxGuidedSearchWidget extends WP_Widget {
 			"description" => "Allow users to search from a curated list of cities, communites, tracts and/or zip codes."
 		));
 	}
-	function LoadScripts(){
+	public static function LoadScripts(){
         dsidxpress_autocomplete::AddScripts(true);
     }
 	function widget($args, $instance) {

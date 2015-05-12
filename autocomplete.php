@@ -10,7 +10,7 @@ class dsidxpress_autocomplete {
 		wp_register_script('dsidx-autocomplete', plugins_url('js/autocomplete.js', __FILE__), array('jquery-ui-autocomplete'), DSIDXPRESS_PLUGIN_VERSION, true);
 	}
 	
-	public static function AddScripts($needs_plugin_url = true) {
+	public static function AddScripts($needs_plugin_url = false) {
 		wp_enqueue_script('dsidx-autocomplete');
 		
 		if ($needs_plugin_url) {

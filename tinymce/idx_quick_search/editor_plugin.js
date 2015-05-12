@@ -1,22 +1,23 @@
-tinymce.create('tinymce.plugins.dsidxListing', {
+tinymce.create('tinymce.plugins.dsidxQuickSearch', {
 	init : function(ed, url) {
-		ed.addCommand('dsidx-listing', function() {
+		ed.addCommand('dsidx-idx-quick-search', function() {
 			ed.windowManager.open({
 				file : url + '/dialog.php',
-				width : 250,
+				width : 350,
 				height : 330,
 				inline : 1
 			}, {
 				plugin_url : url
 			});
 		});
-		ed.addButton('idxlisting', {
-			title : 'Insert single listing from MLS data',
-			cmd : 'dsidx-listing',
+		ed.addButton('idxquicksearch', {
+			title : 'Insert an IDX search form',
+			cmd : 'dsidx-idx-quick-search',
+			classes: 'widget btn dsidx-search-form-btn',
 			//image : url + '/img/single_listing.png'
 		});
 		ed.onNodeChange.add(function(ed, cm, n) {
-			cm.setActive('idxlisting', !tinymce.isIE && /^\[idx-listing /.test(n.innerHTML));
+			cm.setActive('idxquicksearch', !tinymce.isIE && /^\[idx-quick-search /.test(n.innerHTML));
 		});
 	},
 	createControl : function(n, cm) {
@@ -24,7 +25,7 @@ tinymce.create('tinymce.plugins.dsidxListing', {
 	},
 	getInfo : function() {
 		return {
-			longname : 'Insert a "live" single listing from MLS data',
+			longname : 'Insert an IDX search form',
 			author : 'Diverse Solutions',
 			authorurl : 'http://www.diversesolutions.com',
 			infourl : 'javascript:void(0)',
@@ -32,4 +33,4 @@ tinymce.create('tinymce.plugins.dsidxListing', {
 		};
 	}
 });
-tinymce.PluginManager.add('idxlisting', tinymce.plugins.dsidxListing);
+tinymce.PluginManager.add('idxquicksearch', tinymce.plugins.dsidxQuickSearch);

@@ -152,8 +152,19 @@ class dsSearchAgent_Shortcodes {
 		}
 		return substr($values, 0, strlen($values) - 1);
 	}
+
+	static function IdxQuickSearch($atts, $content = null, $code = ""){
+		$atts = shortcode_atts(array(
+			"format"		=> "horizontal"
+		), $atts);
+		ob_start();
+		dsSearchAgent_IdxQuickSearchWidget::shortcodeWidget(array('widgetType'=>$atts['format'], 'class'=>'dsidx-inline-form'));
+		$markup = ob_get_clean();
+		return '<p>'.$markup.'</p>';
+	}
 }
 
 add_shortcode("idx-listing", array("dsSearchAgent_ShortCodes", "Listing"));
 add_shortcode("idx-listings", array("dsSearchAgent_ShortCodes", "Listings"));
+add_shortcode("idx-quick-search", array("dsSearchAgent_ShortCodes", "IdxQuickSearch"));
 ?>

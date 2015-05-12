@@ -175,7 +175,7 @@ class dsSearchAgent_ApiRequest {
 		global $wp_scripts;
 		preg_match_all('/<script\s*src="(?P<src>[^"]+)"\s*data-handle="(?P<handle>[^"]+)"><\/script>/', $data, $scripts, PREG_SET_ORDER);
 		foreach ($scripts as $script) {
-			$alreadyIncluded = (wp_script_is($script['handle']));
+			$alreadyIncluded = wp_script_is($script['handle']);
 			if (!$alreadyIncluded) {
 				wp_register_script($script["handle"], $script["src"], array('jquery'), DSIDXPRESS_PLUGIN_VERSION);
 				wp_enqueue_script($script["handle"]);				

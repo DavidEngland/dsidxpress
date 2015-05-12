@@ -64,11 +64,12 @@ class dsSearchAgent_Admin {
 		$plugins["idxlisting"] = DSIDXPRESS_PLUGIN_URL . "tinymce/single_listing/editor_plugin.js";
 		$plugins["idxlistings"] = DSIDXPRESS_PLUGIN_URL . "tinymce/multi_listings/editor_plugin.js";
 		$plugins["idxlinkbuilder"] = DSIDXPRESS_PLUGIN_URL . "tinymce/link_builder/editor_plugin.js";
+		$plugins["idxquicksearch"] = DSIDXPRESS_PLUGIN_URL . "tinymce/idx_quick_search/editor_plugin.js";
 		
 		return $plugins;
 	}
 	static function RegisterTinyMceButton($buttons) {
-		array_push($buttons, "separator", "idxlisting", "idxlistings", "idxlinkbuilder");
+		array_push($buttons, "separator", "idxlisting", "idxlistings", "idxlinkbuilder", "idxquicksearch");
 		return $buttons;
 	}
 	static function ModifyTinyMceSettings($settings) {

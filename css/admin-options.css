@@ -1,3 +1,46 @@
+.mce-ico.mce-i-idxquicksearch:before {
+    content: '\e603';
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font: normal 24px/22px 'dsidx-icons';
+    vertical-align: top;
+    color: #00aeef;
+    margin-left: -2px;
+}
+
+.mce-ico.mce-i-idxlinkbuilder:before {
+    content: '\e600';
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font: normal 20px/20px 'dsidx-icons';
+    vertical-align: top;
+    color: #00aeef;
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph; /*IE*/
+    filter: fliph; /*IE*/
+}
+
+.mce-ico.mce-i-idxlisting:before {
+    content: '\e601';
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font: normal 22px/20px 'dsidx-icons';
+    vertical-align: top;
+    color: #00aeef;
+}
+
+.mce-ico.mce-i-idxlistings:before {
+    content: '\e602';
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font: normal 26px/22px 'dsidx-icons';
+    vertical-align: top;
+    color: #00aeef;
+}
+
 #icon-dsidxpress
 {
 	background: transparent url(../../../../wp-admin/images/icons32.png?ver=20111206) no-repeat -492px -5px;

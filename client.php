@@ -81,8 +81,6 @@ class dsSearchAgent_Client {
 			$wp_query->query_vars['error'] = '404';
 			return $posts;
 		}
-
-		wp_enqueue_style('dsidxpress-unconditional', DSIDXPRESS_PLUGIN_URL . 'css/client.css');
 		
 		// the dsidxpress js that's on the CDN unfortunately looks to jquery to register a document.ready function. i dont like
 		// having to include this on every page, but we have to pick our battles carefully. hopefully we can fix this someday.

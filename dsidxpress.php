@@ -5,7 +5,7 @@ Plugin URI: http://www.dsidxpress.com/
 Description: This plugin allows WordPress to embed live real estate data from an MLS directly into a blog. You MUST have a dsIDXpress account to use this plugin.
 Author: Diverse Solutions
 Author URI: http://www.diversesolutions.com/
-Version: 2.1.23
+Version: 2.1.24
 */
 
 /*
@@ -39,6 +39,8 @@ define("DSIDXPRESS_PLUGIN_VERSION", $pluginData["Version"]);
 define('DSIDXPRESS_INACTIVE_ACCOUNT_MESSAGE', 'We\'re sorry, but there’s nothing to display here; MLS data service is not activated for this account.');
 define('DSIDXPRESS_IDX_ERROR_MESSAGE', 'We\'re sorry, but it seems that we\'re having some problems loading properties from our database. Please check back soon.');
 define('DSIDXPRESS_INVALID_MLSID_MESSAGE', 'We\'re sorry, but we couldn\'t find MLS # %s in our database. This property may be a new listing or possibly taken off the market. Please check back again.');
+
+define("DSIDXPRESS_MAPS_JS_HANDLE", "googlemaps3");
 
 if (version_compare(phpversion(), DSIDXPRESS_MIN_VERSION_PHP) == -1 || version_compare($wp_version, DSIDXPRESS_MIN_VERSION_WORDPRESS) == -1) {
 	add_action("admin_notices", "dsidxpress_DisplayVersionWarnings");

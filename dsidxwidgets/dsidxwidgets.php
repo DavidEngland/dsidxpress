@@ -68,9 +68,6 @@ if (defined('WIDGETS_CDN')) {
 if (is_admin()) {
 	// this is needed specifically for development as PHP seems to choke when 1) loading this in admin, 2) using windows, 3) using directory junctions
     include_once(dirname( __FILE__ ) . "/admin.php");
-} else {
-	require_once($require_prefix . "client.php");
-	//require_once($require_prefix . "shortcodes.php");
 }
 
 if (defined('DSIDXPRESS_PLUGIN_VERSION')) {

@@ -25,7 +25,7 @@ tinymce.create('tinymce.plugins.dsidxLinkBuilder', {
 		ed.addButton('idxlinkbuilder', {
 			title : 'Build an IDXPress Link',
 			cmd : 'dsidx-link-builder',
-			image : url + '/img/link_builder.png'
+			//image : url + '/img/link_builder.png'
 		});
 		ed.onNodeChange.add(function(ed, cm, n) {
 			cm.setActive('idxlinkbuilder', !tinymce.isIE && /^\[idx-link-builder /.test(n.innerHTML));
