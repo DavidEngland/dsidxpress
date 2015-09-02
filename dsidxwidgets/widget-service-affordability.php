@@ -89,7 +89,7 @@ HTML;
         return $new_instance;
     }
     function form($instance) {
-        wp_enqueue_script('dsidxwidgets_widget_service_admin', DSIDXWIDGETS_PLUGIN_URL . 'js/widget-service-admin.js', array('jquery'), false, true);
+        wp_enqueue_script('dsidxwidgets_widget_service_admin', DSIDXWIDGETS_PLUGIN_URL . 'js/widget-service-admin.js', array('jquery, jquery'), false, true);
         $instance = wp_parse_args($instance, array(
             "income"				=> "100000",
             "downPayment"           => "20000",

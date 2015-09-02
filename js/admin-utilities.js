@@ -147,6 +147,24 @@
                             }
                             html += '</div>';
                             break;
+
+                        case 'lookupListStatuses':
+							value = (field.id in lb.current_filters) ? lb.current_filters[field.id] : '';
+                            html += '<div id="' + fid + '" name="' + fid + '" class="regular-text">';
+	                        var selectActive = (value == 1 || value == 3 || value == 5 || value == 7 || value == 9 || value == 11 || value == 13 || value == 15) ? ' checked' : '';
+	                        var selectConditional = (value == 2 || value == 3 || value == 6 || value == 7 || value == 10 || value == 11 || value == 14 || value == 15) ? ' checked' : '';
+	                        var selectPending = (value == 4 || value == 5 || value == 6 || value == 7 || value == 12 || value == 13 || value == 14 || value == 15) ? ' checked' : '';
+	                        var selectSold = (value == 8 || value == 9 || value == 10 || value == 11 || value == 12 || value == 13 || value == 14 || value == 15) ? ' checked' : '';
+                            html += '<input type="checkbox" name="groupListStatus" value="1"' + selectActive + '>Active<div style="height:6px; clear:both;"></div>';
+                            html += '<input type="checkbox" name="groupListStatus" value="2"' + selectConditional + '>Conditional<div style="height:6px; clear:both;"></div>';
+                            if(('HasSoldData' in mlsCapabilities) && mlsCapabilities['HasSoldData'] !== ''){
+                                html += '<input type="checkbox" name="groupListStatus" value="4"' + selectPending + '>Pending<div style="height:6px; clear:both;"></div>';
+                            }
+                            if(('HasSoldData' in mlsCapabilities) && mlsCapabilities['HasSoldData'] !== ''){
+                                html += '<input type="checkbox" name="groupListStatus" value="8"' + selectSold + '>Sold<div style="height:6px; clear:both;"></div>';
+                            }
+                            html += '</div>';
+                            break;
                     }
                 });
 
@@ -224,6 +242,26 @@
                                 index++;
                             }
                         });
+                    } else {
+                        err_msg = 'You have entered invalid information, please check your entries and try again.';
+                        err = true;
+                    }
+                }
+                else if (field.type == 'lookupListStatuses') {//this type has different way of aquiring the value from radio inputs
+	                if (lb.validate(field, $f.val())) {
+                        var curChildren = $f.children('input');
+                        lb.current_filters[field.id] = -1;
+                        var index = 0;
+                        $f.children().each(function () {
+                            var opt = $(this);
+                            if (opt.is(':checked')) {
+                                index = +index + +opt.val();
+                            }
+                        });
+                        if (index!=0) {
+							lb.current_filters[field.id] = index;
+	                        active_filter = true;
+                        }
                     } else {
                         err_msg = 'You have entered invalid information, please check your entries and try again.';
                         err = true;
@@ -322,6 +360,7 @@
                 $.each(filter.fields, function (index, field) {
                     switch (field.mode) {
                         case 'single':
+                        case 'lookupListStatuses':
                         case 'lookup':
                             var val = (field.id.indexOf('__DSIDXINDEX__') != -1) ? lb.getQueryValue(url, field.id.replace('__DSIDXINDEX__', '<0>')) : lb.getQueryValue(url, field.id);
                             if (val != '') {
@@ -678,16 +717,9 @@
                 fields: [
                     {
                         id: 'idx-q-ListingStatuses',
-                        type: 'lookup',
-                        mode: 'lookup',
-                        hint: '-1',
-                        options: {
-                            '1': 'Active',
-                            '2': 'Conditional',
-                            '4': 'Pending',
-                            '8': 'Sold',
-                            '15': 'All statuses',
-                        }
+                        type: 'lookupListStatuses',
+                        mode: 'lookupListStatuses',
+                        hint: 'One per line'
                     }
                 ]
             },

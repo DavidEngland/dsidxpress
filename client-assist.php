@@ -303,7 +303,7 @@ class dsSearchAgent_ClientAssist {
 			setcookie('dsidx-visitor-public-id', $response->Visitor->PublicID, $remember, '/');
 			setcookie('dsidx-visitor-auth', $response->Visitor->Auth, $remember, '/');
 		} else {
-			if ($_COOKIE['dsidx-visitor-auth'] != '') {
+			if (isset($_COOKIE['dsidx-visitor-auth']) && $_COOKIE['dsidx-visitor-auth'] != '') {
 				// This means the user is no longer logged in globally.
 				// So log out of the current session by removing the cookie.
 				setcookie('dsidx-visitor-public-id', '', time()-60*60*24*30, '/');

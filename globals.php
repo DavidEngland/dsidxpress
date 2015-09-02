@@ -8,6 +8,9 @@ add_action('wp_footer', array('dsIdxGlobals', 'fixGoogleMapsConflict'));
 
 class dsIdxGlobals {
 	public static function enqueueGlobals(){
+		if (defined('DOING_CRON') && DOING_CRON){
+			return;
+		}
 		global $pagenow;
 		$options = get_option(DSIDXPRESS_OPTION_NAME);
 

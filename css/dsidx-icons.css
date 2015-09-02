@@ -9,7 +9,7 @@
 	font-style: normal;
 }
 
-[class^="idx-"], [class*=" idx-"] {
+body.wp-admin [class^="dsidx-"], body.wp-admin [class*=" dsidx-"] {
 	font-family: 'dsidx-icons';
 	speak: none;
 	font-style: normal;
@@ -23,18 +23,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.idx-search:before {
+body.wp-admin .dsidx-search:before {
 	content: "\e603";
 }
 
-.idx-link:before {
+body.wp-admin .dsidx-link:before {
 	content: "\e600";
 }
 
-.idx-listing:before {
+body.wp-admin .dsidx-listing:before {
 	content: "\e601";
 }
 
-.idx-listings:before {
+body.wp-admin .dsidx-listings:before {
 	content: "\e602";
 }

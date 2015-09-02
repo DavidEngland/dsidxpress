@@ -14,6 +14,7 @@ if (defined('ZPRESS_API') && ZPRESS_API != '') {
 
 class dsSearchAgent_Admin {
 	static $HeaderLoaded = null;
+	static $capabilities = array();
 	static function AddMenu() {
 		$options = get_option(DSIDXPRESS_OPTION_NAME);
 
@@ -83,6 +84,10 @@ class dsSearchAgent_Admin {
 		register_setting("dsidxpress_api_options", DSIDXPRESS_API_OPTIONS_NAME, array("dsSearchAgent_Admin", "SanitizeApiOptions"));
 		register_setting("dsidxpress_api_options", DSIDXPRESS_OPTION_NAME, array("dsSearchAgent_Admin", "SanitizeOptions"));
 		register_setting("dsidxpress_xml_sitemap", DSIDXPRESS_OPTION_NAME, array("dsSearchAgent_Admin", "SanitizeOptions"));
+		$capabilities = dsSearchAgent_ApiRequest::FetchData('MlsCapabilities');
+		if (isset($capabilities['body'])) {
+			self::$capabilities = json_decode($capabilities['body'], true);
+		}
 	}
 	static function Enqueue($hook) {
 		//every admin should have admin-options.js cept dsidx_footer-util
@@ -106,6 +111,7 @@ class dsSearchAgent_Admin {
 		if ($hook == 'nav-menus.php' || $hook == 'post.php' || $hook == 'post-new.php') {
 			wp_enqueue_script('dsidxpress_google_maps_geocode_api', '//maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing,geometry');
 			wp_enqueue_script('dsidxpress_admin_utilities', DSIDXPRESS_PLUGIN_URL . 'js/admin-utilities.js', array(), DSIDXPRESS_PLUGIN_VERSION, true);
+			wp_localize_script('dsidxpress_admin_utilities', 'mlsCapabilities', self::$capabilities);
 			wp_enqueue_style('dsidxpress_admin_options_style', DSIDXPRESS_PLUGIN_URL . 'css/admin-options.css', array(), DSIDXPRESS_PLUGIN_VERSION);
 			wp_enqueue_script( 'jquery-ui-autocomplete', '', array( 'jquery-ui-widget', 'jquery-ui-position' ), '1.10.4' );
 		}
@@ -267,6 +273,21 @@ HTML;
 							<?php
 								$advanced_template = (isset($options["AdvancedTemplate"])) ? $options["AdvancedTemplate"] : '';
 								page_template_dropdown($advanced_template);
+							?>
+						</select><br />
+						<span class="description">See above.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="dsidxpress-IDXTemplate">Template for IDX pages:</label>
+					</th>
+					<td>
+						<select id="dsidxpress-IDXTemplate" name="<?php echo DSIDXPRESS_OPTION_NAME ; ?>[IDXTemplate]">
+							<option value="">- Default -</option>
+							<?php
+								$idx_template = (isset($options["IDXTemplate"])) ? $options["IDXTemplate"] : '';
+								page_template_dropdown($idx_template);
 							?>
 						</select><br />
 						<span class="description">See above.</span>
@@ -732,12 +753,6 @@ if (isset($diagnostics["error"])) {
 		$urlBase = get_home_url();
 
 		$wp_options = get_option(DSIDXPRESS_OPTION_NAME);
-		$mlsrules = dsSearchAgent_ApiRequest::FetchData('MlsDisplayRules', array('SearchSetupID' => $wp_options['SearchSetupID']), false, 0);
-		if (isset($mlsrules['body'])) {
-			$mlsrules = json_decode($mlsrules['body'], true);
-		} else {
-			$mlsrules = array();
-		}
 
 		$property_types = dsSearchAgent_ApiRequest::FetchData('AccountSearchSetupPropertyTypes', array(), false, 0);
 		$default_types = dsSearchAgent_ApiRequest::FetchData('DefaultPropertyTypesNoCache', array(), false, 0);
@@ -927,8 +942,11 @@ if (isset($diagnostics["error"])) {
 							<table class="dsidxpress-status-types">
 								<?php
 								$listing_status_types = array('Active' => 1, 'Conditional' => 2, 'Pending' => 4, 'Sold' => 8);
-								if (isset($mlsrules['HideSoldPropertyFunctionality'])) {
+								if (empty(self::$capabilities['HasSoldData'])) {
 									unset($listing_status_types['Sold']);
+								}
+								if (empty(self::$capabilities['HasPendingData'])) {
+									unset($listing_status_types['Pending']);
 								}
 								foreach ($listing_status_types as $label => $value) :
 									$status_checked = '';
@@ -1279,6 +1297,16 @@ if (isset($diagnostics["error"])) {
 						<td>
 							<input type="checkbox" id="dsidxpress-ShowPanel_ContactCB" size="50" <?php checked('true', strtolower($account_options->ShowPanel_Contact)); ?> onclick="dsIDXpressOptions.OptionCheckBoxClick(this);" /><br />
 							<input type="hidden" id="dsidxpress-ShowPanel_Contact" name="<?php echo DSIDXPRESS_API_OPTIONS_NAME; ?>[ShowPanel_Contact]" value="<?php echo $account_options->ShowPanel_Contact;?>" />
+							<span class="description"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="dsidxpress-ShowOpenHousesCB">Show Open House Details:</label>
+						</th>
+						<td>
+							<input type="checkbox" id="dsidxpress-ShowOpenHousesCB" size="50" <?php checked('true', strtolower($account_options->ShowOpenHouses)); ?> onclick="dsIDXpressOptions.OptionCheckBoxClick(this);" /><br />
+							<input type="hidden" id="dsidxpress-ShowOpenHouses" name="<?php echo DSIDXPRESS_API_OPTIONS_NAME; ?>[ShowOpenHouses]" value="<?php echo $account_options->ShowOpenHouses;?>" />
 							<span class="description"></span>
 						</td>
 					</tr>

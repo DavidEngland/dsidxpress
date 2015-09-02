@@ -139,7 +139,11 @@ class dsIdxListingsPages {
     public static function SetTemplate($template) {
         if (get_query_var('post_type') == 'ds-idx-listings-page') {
             $options = get_option(DSIDXPRESS_OPTION_NAME);
-            if (!empty($options['ResultsTemplate'])) {
+            if (!empty($options['IDXTemplate'])) {
+                $newTemplate = locate_template(array($options['IDXTemplate']));
+                if (!empty($newTemplate)) $template = $newTemplate;
+            }
+            else if (!empty($options['ResultsTemplate'])) {
                 $newTemplate = locate_template(array($options['ResultsTemplate']));
                 if (!empty($newTemplate)) $template = $newTemplate;
             }
